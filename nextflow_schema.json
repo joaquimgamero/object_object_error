@@ -1,29 +1,36 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/sarek/master/nextflow_schema.json",
-    "title": "pipeline parameters",
-    "description": "Test pipeline",
+    "title": "nf-core/sarek pipeline parameters",
+    "description": "An open-source analysis pipeline to detect germline or somatic variants from whole genome or targeted sequencing",
     "type": "object",
     "definitions": {
-        "options": {
-            "title": "Options",
+        "reference_genome_options": {
+            "title": "Reference genome options",
             "type": "object",
-            "fa_icon": "fas fa-terminal",
-            "description": "Define where the pipeline should find input data and save output data.",
-            "help_text": "Specify input",
-            "required": ["string"],
+            "fa_icon": "fas fa-dna",
+            "description": "Reference genome related files and options required for the workflow.",
             "properties": {
-                "string": {
-                    "description": "It's a string",
+                "genome": {
                     "type": "string",
-                    "exists": true
+                    "description": "Name of iGenomes reference.",
+                    "default": "75",
+                    "fa_icon": "fas fa-book",
+                    "help_text": "If using a reference genome configured in the pipeline using iGenomes, use this parameter to give the ID for the reference. This is then used to build the full paths for all required reference genome files e.g. `--genome GRCh38`.\n\nSee the [nf-core website docs](https://nf-co.re/usage/reference_genomes) for more details."
+                },
+                "my_db": {
+                    "type": "string",
+                    "fa_icon": "fas fa-database",
+                    "description": "snpEff DB version.",
+                    "help_text": "If you use AWS iGenomes, this has already been set for you appropriately.\nThis is used to specify the database to be use to annotate with.\nAlternatively databases' names can be listed with the `snpEff databases`."
                 }
-            }
+            },
+            "help_text": "The pipeline config files come bundled with paths to the Illumina iGenomes reference index files.\nThe configuration is set up to use the AWS-iGenomes resource\ncf https://ewels.github.io/AWS-iGenomes/."
         }
     },
     "allOf": [
         {
-            "$ref": "#/definitions/options"
+            "$ref": "#/definitions/reference_genome_options"
         }
     ]
 }
